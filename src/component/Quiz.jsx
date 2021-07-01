@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../images/logo.png';
+import Logo from '../images/logo.jpg';
 import QuestionData from '../questions.json';
 import StarRatingComponent from 'react-star-rating-component';
 import  ProgressBar from 'react-bootstrap/ProgressBar';
@@ -128,7 +128,7 @@ class Quiz extends React.Component
                 {this.state.isStart === true && <div className="content">
                     <div className="header">
                         <img className="logo" src={Logo} alt="..." />
-                        <h5>Expertizo Engineering React Quiz Challenge</h5>
+                        <h4>Quiz Application - React JS</h4>
                     </div>
                     <div>
                         <ProgressBar animated now={newQuestionProgress.toFixed(0)} label={`${newQuestionProgress.toFixed(0)}%`} />
@@ -148,7 +148,7 @@ class Quiz extends React.Component
                         />
                     </div>
                     <div className="questions">
-                        <p>{this.state.questions}</p>
+                        <h5>{this.state.questions}</h5>
                     </div>
                     <div className="answers">
                         <div>
@@ -167,9 +167,14 @@ class Quiz extends React.Component
                         </div>
                     </div>
                     <div className="nextQuestion">
-                        {this.state.isChecked && this.state.isCorrect && <p>correct</p>}
-                        {!this.state.isFinish && this.state.isChecked === true && <p onClick={this.nextQuestion}>NEXT</p>}
-                        {this.state.isFinish && this.state.isChecked === true && <p onClick={() => window.location.reload(false)}>FINISH</p>}
+                        <div>
+                            {this.state.isChecked && this.state.isCorrect && <p className="correct">Correct!</p>}
+                            {this.state.isChecked && !this.state.isCorrect && <p className="wrong">Sorry!</p>}
+                        </div>
+                        <div>
+                            {!this.state.isFinish && this.state.isChecked === true && <button onClick={this.nextQuestion}>NEXT</button>}
+                            {this.state.isFinish && this.state.isChecked === true && <button onClick={() => window.location.reload(false)}>FINISH</button>}
+                        </div>
                     </div>
                     <div className="score">
                         <div className="progress-score">

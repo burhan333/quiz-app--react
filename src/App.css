@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    color: #505050;
 }
 
 .quiz .content
@@ -13,7 +14,7 @@
     width: 70%;
     border-radius: 5px;
     border: 1px solid #e4e4e4;
-    padding: 20px;
+    padding: 30px;
 }
 
 .quiz .header
@@ -24,9 +25,37 @@
     margin-bottom: 20px;
 }
 
+.progress 
+{
+    height: 1.3rem !important;
+}
+
+.progress-bar
+{
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+}
+
 .quiz .logo
 {
-    width: 100px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.quiz .questionNumber 
+{
+    margin-top: 30px;
+}
+
+.quiz .questionCategory p
+{
+    margin-bottom: 0;
+}
+
+.quiz .questions 
+{
+    margin-bottom: 80px;
+    margin-top: 30px;
 }
 
 .quiz .answers
@@ -38,11 +67,41 @@
 .quiz .answers p
 {
     cursor: pointer;
+    border: 1px solid #505050;
+    text-align: center;
+    padding: 8px 30px;
+    font-weight: 500;
+    border-radius: 3px;
+    background: #fbfbfb;
 }
 
-.quiz .nextQuestion p
+.quiz .nextQuestion 
+{
+    text-align: center;
+}
+
+.quiz .nextQuestion .correct
+{
+    color: #43d643;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+
+.quiz .nextQuestion .wrong
+{
+    color: #d64343;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+
+.quiz .nextQuestion button
 {
     cursor: pointer;
+    border: 1px solid #505050;
+    text-align: center;
+    padding: 8px 50px;
+    font-weight: 500;
+    background: transparent;
 }
 
 .quiz .incorrect-answer
@@ -54,11 +113,12 @@
 .quiz .correct-answer
 {
     pointer-events: none;
+    color: black;
 }
 
 .quiz .start p
 {
-    border: 1px solid black;
+    border: 2px solid #505050;
     padding: 10px 40px;
     font-size: 24px;
     font-weight: 600;
@@ -69,4 +129,11 @@
 {
     display: flex;
     justify-content: space-between;
+    margin-top: 80px;
+}
+
+.quiz .progress-score p 
+{
+    font-weight: 500;
+    font-size: 1.2rem;
 }
