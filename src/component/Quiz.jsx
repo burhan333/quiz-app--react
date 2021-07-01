@@ -26,19 +26,20 @@ class Quiz extends React.Component
     }
 
     componentDidMount() {
-        let answers = [QuestionData[this.state.index].correct_answer, QuestionData[this.state.index].incorrect_answers[0], QuestionData[this.state.index].incorrect_answers[1], QuestionData[this.state.index].incorrect_answers[2]]
+        const {index} = this.state
+        let answers = [QuestionData[index].correct_answer, QuestionData[index].incorrect_answers[0], QuestionData[index].incorrect_answers[1], QuestionData[index].incorrect_answers[2]]
         let shuffleAnswers = answers.sort((a, b) => 0.5 - Math.random())
-        let filterQuestions = QuestionData[this.state.index].question.replace(/(%20|%27|%3F)/g, ' ')
+        let filterQuestions = QuestionData[index].question.replace(/(%20|%27|%3F)/g, ' ')
         let filterAnswers = shuffleAnswers.map(e => e.replace(/(%20|%27|%3F)/g, ' '))
-        let filterCorrectAnswer = QuestionData[this.state.index].correct_answer.replace(/(%20|%27|%3F)/g, ' ')
-        let filterCategory = QuestionData[this.state.index].category.replace(/(%20|%27|%3F|%3A)/g, ' ')
+        let filterCorrectAnswer = QuestionData[index].correct_answer.replace(/(%20|%27|%3F)/g, ' ')
+        let filterCategory = QuestionData[index].category.replace(/(%20|%27|%3F|%3A)/g, ' ')
 
         let stars;
-        if(QuestionData[this.state.index].difficulty === 'easy')
+        if(QuestionData[index].difficulty === 'easy')
         {
             stars = 1
         }
-        if(QuestionData[this.state.index].difficulty === 'medium')
+        if(QuestionData[index].difficulty === 'medium')
         {
             stars = 3
         }
@@ -118,10 +119,11 @@ class Quiz extends React.Component
     }
 
     render() {
-        let newQuestionProgress = (this.state.questionProgress / QuestionData.length) * 100;
-        let currentScore = this.state.currentQuestionNumber > 0 ? (this.state.score / this.state.currentQuestionNumber) * 100 : 0;
-        let maxScore = this.state.currentQuestionNumber > 0 ? ((this.state.score + this.state.remainingQuestion) / QuestionData.length) * 100 : 100;
-        let minScore = this.state.currentQuestionNumber > 0 ? (this.state.score / QuestionData.length) * 100 : 0;
+        const {questionProgress, score, currentQuestionNumber, remainingQuestion, index, questionCategory, questions, isChecked} = this.state
+        let newQuestionProgress = (questionProgress / QuestionData.length) * 100;
+        let currentScore = currentQuestionNumber > 0 ? (score / currentQuestionNumber) * 100 : 0;
+        let maxScore = currentQuestionNumber > 0 ? ((score + remainingQuestion) / QuestionData.length) * 100 : 100;
+        let minScore = currentQuestionNumber > 0 ? (score / QuestionData.length) * 100 : 0;
 
         return (
             <div className="quiz">
@@ -134,10 +136,10 @@ class Quiz extends React.Component
                         <ProgressBar animated now={newQuestionProgress.toFixed(0)} label={`${newQuestionProgress.toFixed(0)}%`} />
                     </div>
                     <div className="questionNumber">
-                        <h3>Question <span>{this.state.index + 1}</span>/20</h3>
+                        <h3>Question <span>{index + 1}</span>/20</h3>
                     </div>
                     <div className="questionCategory">
-                        <p>{this.state.questionCategory}</p>
+                        <p>{questionCategory}</p>
                     </div>
                     <div className="questionDifficulty">
                         <StarRatingComponent
@@ -148,32 +150,32 @@ class Quiz extends React.Component
                         />
                     </div>
                     <div className="questions">
-                        <h5>{this.state.questions}</h5>
+                        <h5>{questions}</h5>
                     </div>
                     <div className="answers">
                         <div>
-                            {this.state.isChecked && <p className={`${this.state.answers[0] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
-                            {!this.state.isChecked && <p onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
+                            {isChecked && <p className={`${this.state.answers[0] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
+                            {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
 
-                            {this.state.isChecked && <p className={`${this.state.answers[1] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
-                            {!this.state.isChecked && <p onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
+                            {isChecked && <p className={`${this.state.answers[1] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
+                            {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
                         </div>
                         <div>
-                            {this.state.isChecked && <p className={`${this.state.answers[2] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
-                            {!this.state.isChecked && <p onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
+                            {isChecked && <p className={`${this.state.answers[2] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
+                            {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
 
-                            {this.state.isChecked && <p className={`${this.state.answers[3] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
-                            {!this.state.isChecked && <p onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
+                            {isChecked && <p className={`${this.state.answers[3] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
+                            {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
                         </div>
                     </div>
                     <div className="nextQuestion">
                         <div>
-                            {this.state.isChecked && this.state.isCorrect && <p className="correct">Correct!</p>}
-                            {this.state.isChecked && !this.state.isCorrect && <p className="wrong">Sorry!</p>}
+                            {isChecked && this.state.isCorrect && <p className="correct">Correct!</p>}
+                            {isChecked && !this.state.isCorrect && <p className="wrong">Sorry!</p>}
                         </div>
                         <div>
-                            {!this.state.isFinish && this.state.isChecked === true && <button onClick={this.nextQuestion}>NEXT</button>}
-                            {this.state.isFinish && this.state.isChecked === true && <button onClick={() => window.location.reload(false)}>FINISH</button>}
+                            {!this.state.isFinish && isChecked === true && <button onClick={this.nextQuestion}>NEXT</button>}
+                            {this.state.isFinish && isChecked === true && <button onClick={() => window.location.reload(false)}>FINISH</button>}
                         </div>
                     </div>
                     <div className="score">
