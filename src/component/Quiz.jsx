@@ -15,7 +15,6 @@ class Quiz extends React.Component
         questionProgress: 1,
         score: 0,
         isCorrect: false,
-        inNotCorrect: false,
         correctAnswer: '',
         answers: [],
         questions: [],
@@ -23,6 +22,7 @@ class Quiz extends React.Component
         remainingQuestion: 0,
         isStart: false,
         questionCategory: '',
+        boolean: true,
     }
 
     componentDidMount() {
@@ -83,7 +83,19 @@ class Quiz extends React.Component
         let answers = [QuestionData[index].correct_answer, QuestionData[index].incorrect_answers[0], QuestionData[index].incorrect_answers[1], QuestionData[index].incorrect_answers[2]]
         let shuffleAnswers = answers.sort((a, b) => 0.5 - Math.random())
         let filterQuestions = QuestionData[index].question.replace(/(%20|%27|%3F|%22|%2C|%2)/g, ' ')
-        let filterAnswers = shuffleAnswers.map(item => item ? item.replace(/(%20|%27|%3F|%22|%2C|%2)/g, ' ') : '')
+        let filterAnswers;
+        if (QuestionData[index].type === 'boolean')
+        {
+            filterAnswers = [shuffleAnswers[0], shuffleAnswers[1]]
+            this.setState({boolean: false})
+            console.log(this.state.boolean, 'boolean')
+            console.log(filterAnswers, 'true')
+        }
+        else
+        {
+             filterAnswers = shuffleAnswers.map(item => item ? item.replace(/(%20|%27|%3F|%22|%2C|%2)/g, ' ') : '')
+             this.setState({boolean: true})
+        }
         let filterCorrectAnswer = QuestionData[index].correct_answer.replace(/(%20|%27|%3F)/g, ' ')
         let filterCategory = QuestionData[index].category.replace(/(%20|%27|%3F|%3A)/g, ' ')
 
@@ -112,7 +124,7 @@ class Quiz extends React.Component
             isCorrect: false,
             questionCategory: filterCategory,
         })
-
+        
         if (index === 19) {
             this.setState({ isFinish: true })
         }
@@ -154,19 +166,19 @@ class Quiz extends React.Component
                     </div>
                     <div className="answers">
                         <div>
-                            {isChecked && <p className={`${this.state.answers[0] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
+                            {isChecked && <p className={`${this.state.answers[0] === this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
                             {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[0])}>{this.state.answers[0]}</p>}
 
-                            {isChecked && <p className={`${this.state.answers[1] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
+                            {isChecked && <p className={`${this.state.answers[1] === this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
                             {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[1])}>{this.state.answers[1]}</p>}
                         </div>
-                        <div>
-                            {isChecked && <p className={`${this.state.answers[2] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
+                        {this.state.boolean && <div>
+                            {isChecked && <p className={`${this.state.answers[2] === this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
                             {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[2])}>{this.state.answers[2]}</p>}
 
-                            {isChecked && <p className={`${this.state.answers[3] == this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
+                            {isChecked && <p className={`${this.state.answers[3] === this.state.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`} onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
                             {!isChecked && <p onClick={() => this.checkPoint(this.state.answers[3])}>{this.state.answers[3]}</p>}
-                        </div>
+                        </div>}
                     </div>
                     <div className="nextQuestion">
                         <div>
