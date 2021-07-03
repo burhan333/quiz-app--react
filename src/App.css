@@ -141,6 +141,8 @@
     font-size: 1.2rem;
 }
 
+/* MDEIA QUERIES */
+
 @media (max-width: 767px)
 {
     .quiz .content 
