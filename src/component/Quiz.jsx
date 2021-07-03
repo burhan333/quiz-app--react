@@ -88,8 +88,6 @@ class Quiz extends React.Component
         {
             filterAnswers = [shuffleAnswers[0], shuffleAnswers[1]]
             this.setState({boolean: false})
-            console.log(this.state.boolean, 'boolean')
-            console.log(filterAnswers, 'true')
         }
         else
         {

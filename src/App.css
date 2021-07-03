@@ -7,6 +7,8 @@
     justify-content: center;
     min-height: 100vh;
     color: #505050;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .quiz .content
@@ -34,6 +36,7 @@
 {
     font-size: 1rem !important;
     font-weight: 500 !important;
+    min-width: 40px;
 }
 
 .quiz .logo
@@ -136,4 +139,23 @@
 {
     font-weight: 500;
     font-size: 1.2rem;
+}
+
+@media (max-width: 767px)
+{
+    .quiz .content 
+    {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .quiz .answers 
+    {
+        flex-wrap: wrap;
+    }
+
+    .quiz .answers div
+    {
+        width: 100%;
+    }
 }
